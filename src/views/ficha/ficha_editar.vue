@@ -180,13 +180,15 @@
 </template>
 <script>
 
-import { collection, getDocs, query, where, addDoc } from "firebase/firestore";
+import { collection, getDocs,getDoc, query, where, addDoc, updateDoc, doc } from "firebase/firestore";
 import { auth, db } from "../../firebaseConfig";
 import { defineComponent } from 'vue';
 export default defineComponent({
     // name: 'scanner',
     data() {
         return {
+            id: this.$route.params.id,
+
             loadingDoc: false,
             ficha: {
                 nombrecompleto: '',
@@ -213,11 +215,20 @@ export default defineComponent({
                 no: '',
                 NombresyApellido: '',
                 edad: '',
-                año: ''
+                año: '',
             },
         }
     },
     methods: {
+        async getUrls() {
+            try {
+                const q = doc(db, "ficha", this.id);
+                const respuesta = await getDoc(q);
+                this.ficha=respuesta.data()
+            } catch (error) {
+                console.log(error);
+            }
+        },
         async guardar() {
             try {
                 const q = query(collection(db, 'ficha'));
@@ -229,6 +240,7 @@ export default defineComponent({
         },
     },
     created() {
+        this.getUrls()
     }
 })
 </script>

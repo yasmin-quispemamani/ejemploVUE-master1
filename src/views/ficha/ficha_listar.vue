@@ -10,15 +10,23 @@
                         <thead>
                             <tr>
                                 <th scope="col">Nombre</th>
-                                <th scope="col">DNI</th>
-                                <th scope="col">fechadenacimiento</th>                                
+                                <th scope="col">fechadenacimiento</th>
+                                <th scope="col">nacionalidad</th> 
+                                <th scope="col">dni</th>
+                                <th scope="col">direccion</th>
+                                <th scope="col">distrito</th> 
+                                <th scope="col">provincia</th>                                
                             </tr>
                         </thead>
                         <tbody>
                             <tr v-for="data in ficha">
-                                <td>{{ data.nombre }}</td>
-                                <td>{{ data.dni }}</td>
-                                <td>{{ data.fechadenacimiento }}</td>                                
+                                <td>{{ data.nombre }}</td>                                
+                                <td>{{ data.fechadenacimiento }}</td> 
+                                <td>{{ data.nacionalidad }}</td> 
+                                <td>{{ data.dni }}</td>                                
+                                <td>{{ data.direccion}}</td>
+                                <td>{{ data.distrito }}</td> 
+                                <td>{{ data.provincia }}</td>                               
                                 <td>
                                     <RouterLink class="btn btn-success" :to="'/ficha_editar/' + data.id">Editar</RouterLink>
                                     <button class="btn btn-danger" @click="eliminar(data.id)">Eliminar

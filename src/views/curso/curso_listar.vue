@@ -1,7 +1,7 @@
 <template>
     <div class="row">
         <div class="col-md-12">
-            <RouterLink class="btn btn-primary" to="/curso_crear"> Agregar ficha</RouterLink>
+            <RouterLink class="btn btn-primary" to="/curso_crear"> Agregar Cursos</RouterLink>
         </div>
         <div class="col-md-12">
             <div class="card">
@@ -10,15 +10,17 @@
                         <thead>
                             <tr>
                                 <th scope="col">Nombre</th>
-                                <th scope="col">DNI</th>
-                                <th scope="col">fechadenacimiento</th>                                
+                                <th scope="col">Horas</th>
+                                <th scope="col">creditos</th>
+                                <th scope="col">descripcion</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr v-for="data in ficha">
+                            <tr v-for="data in curso">
                                 <td>{{ data.nombre }}</td>
-                                <td>{{ data.dni }}</td>
-                                <td>{{ data.fechadenacimiento }}</td>                                
+                                <td>{{ data.horas }}</td>
+                                <td>{{ data.creditos }}</td>
+                                <td>{{ data.descripcion }}</td>
                                 <td>
                                     <RouterLink class="btn btn-success" :to="'/curso_editar/' + data.id">Editar</RouterLink>
                                     <button class="btn btn-danger" @click="eliminar(data.id)">Eliminar
@@ -43,24 +45,25 @@ export default defineComponent({
     data() {
         return {
             loadingDoc: false,
-            ficha: []
+            curso: []
         }
     },
 
     methods: {
         async getUrls() {
             try {
-                this.ficha= []
+                this.curso= []
                 const q = query(
                     collection(db, "curso")
                 );
                 const querySnapshot = await getDocs(q);
                 querySnapshot.forEach((doc) => {
                     // console.log(doc.id);
-                    this.ficha.push({
+                    this.curso.push({
                         nombre: doc.data().nombre,
-                        dni: doc.data().dni,
-                        fechadenacimiento: doc.data().fechadenacimiento,                        
+                        horas: doc.data().horas,
+                        creditos: doc.data().creditos,
+                        descripcion: doc.data().descripcion,
                         id: doc.id,
                         // ...doc.data()
                     });
